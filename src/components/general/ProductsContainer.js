@@ -1,16 +1,16 @@
 import styled from "styled-components"
 import ProductCard from "./ProductCard"
 
-export default function ProductsContainer({ category }){
+export default function ProductsContainer({ category, products}){
+    const filteredProducts = products.filter(product => product.category === category)
+
     return(
         <Container>
             <CategoryTitle>{category}</CategoryTitle>
-            <Carousel>
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
+            <Carousel>  
+                {filteredProducts.map((product, i) => (
+                    <ProductCard id={i} product={product}/>
+                ))}
             </Carousel>
         </Container>
     )
@@ -24,7 +24,7 @@ const Container = styled.div`
 const CategoryTitle = styled.h2`
     height: 35px;
     font-family: "Saira Stencil One", cursive;
-    margin: 25px 0;
+    margin: 35px 0 20px 0;
     font-size: 28px;
     font-weight: 700;
     color: #000;

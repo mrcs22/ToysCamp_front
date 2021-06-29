@@ -22,9 +22,10 @@ export default function SideMenu({isOpen, toggleSideMenu}){
 
 const Container = styled.div`
     position: fixed;
-    left: 0;
+    left: ${props => props.isOpen ? "0" : "-100vw"};
     top: 0;
-    transform: ${props => props.isOpen ? "translate3d(0vw, 0, 0)" : "translate3d(-100vw, 0, 0)"};
+    /* transform: ${props => props.isOpen ? "translate3d(0vw, 0, 0)" : "translate3d(-100vw, 0, 0)"}; */
+    transition: left 1s ease;
     display: ${props => props.isOpen ? "flex" : "none"};
     position: fixed;
     width: 100%;
