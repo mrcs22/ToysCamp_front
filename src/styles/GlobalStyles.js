@@ -54,7 +54,7 @@ const GlobalStyle = createGlobalStyle`
         font-family: inherit;
     }
     body {
-   background-color: #fff;
+        background-color: #F3F2F2;
     }
     button:focus {
         outline: none;
