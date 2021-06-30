@@ -7,24 +7,15 @@ import Button from "../general/Button";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-export default function SignUpPage() {
+export default function SignInPage({ setUser }) {
   const history = useHistory();
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   return (
     <Container>
       <Logo />
-      <InputsHolder onSubmit={trySignUp}>
-        <TextInput
-          type="text"
-          required
-          placeholder="Nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+      <InputsHolder onSubmit={trySignIn}>
         <TextInput
           type="email"
           required
@@ -39,39 +30,29 @@ export default function SignUpPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <TextInput
-          type="password"
-          required
-          placeholder="Confirme a senha"
-          value={passwordConfirm}
-          onChange={(e) => setPasswordConfirm(e.target.value)}
-        />
-        <Button type="submit" value="Cadastrar" />
+
+        <Button type="submit" value="Entrar" />
       </InputsHolder>
     </Container>
   );
 
-  function trySignUp(e) {
+  function trySignIn(e) {
     e.preventDefault();
 
-    if (password !== passwordConfirm) {
-      return alert("As senhas devem ser iguais!");
-    }
-
-    const promise = axios.post("http://localhost:4000/sign-up", {
-      name,
+    const promise = axios.post("http://localhost:4000/sign-in", {
       email,
       password,
     });
 
-    promise.then(() => {
-      alert("cadastrado com sucesso!");
-      history.push("/sign-in");
+    promise.then((res) => {
+      localStorage.setItem("toysCampUserData", JSON.stringify(res.data));
+      setUser(res.data);
+      history.push("/");
     });
 
     promise.catch((e) => {
-      if (e.response?.status === 409) {
-        alert("Email já cadastrado. Faça login, ou cadastre outro email.");
+      if (e.response?.status === 401) {
+        alert("Email e/ou senha incorretos. Tente novamente.");
       } else if (e.response?.status === 400) {
         alert("Dados inválidos. Preencha com atenção.");
       } else {
