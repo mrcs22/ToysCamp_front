@@ -30,7 +30,7 @@ export default function App(){
             <Switch>
                 <Route path="/sign-up" exact component={SignUpPage}/>
                 <Route 
-                    path="/home" 
+                    path="/" 
                     exact 
                     render={(props) => (
                         <HomePage {...props} products={products} />
@@ -50,7 +50,6 @@ export default function App(){
                         <CategoryPage {...props} products={products} category={"Promoções"}/>
                     )}
                 />
-                
             </Switch>
         </BrowserRouter>
     )

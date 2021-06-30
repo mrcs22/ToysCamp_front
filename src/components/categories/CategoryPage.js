@@ -6,7 +6,6 @@ import Header from "../header/Header"
 export default function CategoryPage({products, category}) {
     const releasesProducts = products.filter(product => product.category === category)
 
-
     return(
         <>
             <Header />
