@@ -1,5 +1,6 @@
 import { Link, useHistory } from "react-router-dom"
 import styled from "styled-components"
+import {BsFillPersonFill} from "react-icons/bs"
 
 export default function SideMenu({isOpen, toggleSideMenu}){
     let history = useHistory()
@@ -14,7 +15,13 @@ export default function SideMenu({isOpen, toggleSideMenu}){
                 <MenuContent>
                     <ul>
                         <li>
-                            <Link to="/home" onClick={toggleSideMenu}>
+                            <BsFillPersonFill className="user_icon"/>
+                            <Link to="/login" onClick={toggleSideMenu}>  Entrar </Link>
+                            /
+                            <Link to="/sign-up" onClick={toggleSideMenu}> Cadastrar</Link>
+                        </li>
+                        <li>
+                            <Link to="/" onClick={toggleSideMenu}>
                                 Início
                             </Link>
                         </li>
@@ -44,7 +51,6 @@ const Container = styled.div`
     position: fixed;
     left: ${props => props.isOpen ? "0" : "-100vw"};
     top: 0;
-    /* transform: ${props => props.isOpen ? "translate3d(0vw, 0, 0)" : "translate3d(-100vw, 0, 0)"}; */
     transition: left 0.7s ease;
     display: flex;
     position: fixed;
@@ -53,7 +59,6 @@ const Container = styled.div`
     font-size: 28px;
     color: #293B5F;
 `
-
 const MenuContent = styled.div`
     display: flex;
     flex-direction: column;
@@ -71,6 +76,9 @@ const MenuContent = styled.div`
         font-weight: 700;
         margin-bottom: 50px;
     }
+    ul li:first-child{
+        font-size: 18px;
+    }
     .sideMenuFooter{
         display: flex;
         flex-direction: column;
@@ -85,8 +93,10 @@ const MenuContent = styled.div`
         background-color: #293B5F;
         opacity: 0.4;
     }
+    .user_icon{
+        line-height: 2px;
+    }
 `
-
 const Background = styled.div`
     position: fixed;
     top: 0;
