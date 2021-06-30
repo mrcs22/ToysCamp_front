@@ -3,12 +3,13 @@ import ProductCard from "./ProductCard"
 
 export default function ProductsContainer({ category, products}){
     const filteredProducts = products.filter(product => product.category === category)
+    const randomProducts = filteredProducts.sort(() => (Math.round(Math.random() - 1)));
 
     return(
         <Container>
             <CategoryTitle>{category}</CategoryTitle>
             <Carousel>  
-                {filteredProducts.map((product, i) => (
+                {randomProducts.splice(0, 7).map((product, i) => (
                     <ProductCard id={i} product={product}/>
                 ))}
             </Carousel>

@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { AiOutlineMenu } from 'react-icons/ai'
 import Logo from "../general/Logo";
 import ShopcartButton from "../general/ShopcartButton";
 import SideMenu from "./SideMenu";

@@ -2,7 +2,7 @@ import styled from "styled-components"
 import ShopcartButton from "./ShopcartButton"
 
 export default function ProductCard({product}){
-    const {name, image, price, category} = product
+    const { name, image, price } = product
     
 
     return(
@@ -27,7 +27,6 @@ const Container = styled.div`
     background-color: #fff;
     margin: 0 5px;
 `
-
 const StyledImage = styled.img`
     border-radius: 9px 9px 0 0;
     width: 100%;
@@ -40,7 +39,6 @@ const ProductName = styled.span`
     font-size: 25px;
     color: #000;
 `
-
 const CardFooter = styled.div`
     display: flex;
     font-family: "Saira Stencil One", cursive;

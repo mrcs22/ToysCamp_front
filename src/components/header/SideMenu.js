@@ -1,17 +1,37 @@
+import { Link, useHistory } from "react-router-dom"
 import styled from "styled-components"
 
 export default function SideMenu({isOpen, toggleSideMenu}){
+    let history = useHistory()
+
+    const logout = () => {
+        localStorage.clear()
+        history.push("/")
+    }
+
     return(
             <Container isOpen={isOpen}>
                 <MenuContent>
                     <ul>
-                        <li>Início</li>
-                        <li>Lançamentos</li>
-                        <li>Promoções</li>
+                        <li>
+                            <Link to="/home" onClick={toggleSideMenu}>
+                                Início
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/releases" onClick={toggleSideMenu}>
+                                Lançamentos
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/sales" onClick={toggleSideMenu}>
+                                Promoções
+                            </Link>
+                        </li>
                     </ul>
                     <div className="sideMenuFooter">
                         <div className="bar"></div>
-                        <span>Sair</span>
+                        <span onClick={logout}>Sair</span>
                         <span>SAC: (99) 99999-9999</span>
                     </div>
                 </MenuContent>
@@ -25,7 +45,7 @@ const Container = styled.div`
     left: ${props => props.isOpen ? "0" : "-100vw"};
     top: 0;
     /* transform: ${props => props.isOpen ? "translate3d(0vw, 0, 0)" : "translate3d(-100vw, 0, 0)"}; */
-    transition: left 0.6s ease;
+    transition: left 0.7s ease;
     display: flex;
     position: fixed;
     width: 100%;
@@ -74,6 +94,7 @@ const Background = styled.div`
     width: 100%;
     height: 100%;
     opacity: ${props => props.isOpen ? "0.6" : "0"};
+    pointer-events: ${props => props.isOpen ? "auto" : "none"};
     transition: opacity 0.7s ease;
     background-color: #000;
 `
