@@ -17,7 +17,7 @@ export default function App() {
 
   const fetchProducts = useCallback(() => {
     axios
-      .get("http://localhost:4000/products")
+      .get("https://toyscamp.herokuapp.com/products")
       .then((res) => {
         setProducts(res.data);
       })

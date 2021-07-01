@@ -23,7 +23,7 @@ export default function ShopcartButton({ productId }) {
     };
 
     const promise = axios.post(
-      "http://localhost:4000/shopcart",
+      "https://toyscamp.herokuapp.com/shopcart",
       { productId },
       config
     );

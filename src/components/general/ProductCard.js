@@ -9,7 +9,7 @@ export default function ProductCard({ product }) {
       <CategoryStrip>
         {category === "Lançamentos" ? "Novidade" : "Desconto"}
       </CategoryStrip>
-      <StyledImage src={`http://localhost:4000${image}`} />
+      <StyledImage src={`https://toyscamp.herokuapp.com${image}`} />
       <ProductName>{name}</ProductName>
       <CardFooter>
         <span>R$ {(price / 100).toFixed(2).replace(".", ",")}</span>

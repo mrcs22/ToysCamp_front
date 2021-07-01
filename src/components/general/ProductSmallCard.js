@@ -6,7 +6,7 @@ export default function ProductSmallCard({ product }) {
 
   return (
     <CardContainer>
-      <StyledImage src={`http://localhost:4000${image}`} />
+      <StyledImage src={`https://toyscamp.herokuapp.com/${image}`} />
       <ProductInfo>
         <ProductName>{name}</ProductName>
         <div>

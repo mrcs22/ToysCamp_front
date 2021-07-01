@@ -41,7 +41,7 @@ export default function SignInPage({ setUser }) {
   function trySignIn(e) {
     e.preventDefault();
 
-    const promise = axios.post("http://localhost:4000/sign-in", {
+    const promise = axios.post("https://toyscamp.herokuapp.com//sign-in", {
       email,
       password,
     });
