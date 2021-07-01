@@ -1,12 +1,16 @@
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { BsFillPersonFill } from "react-icons/bs";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 export default function SideMenu({ isOpen, toggleSideMenu }) {
   let history = useHistory();
+  const {user} = useContext(UserContext)
 
   const logout = () => {
     localStorage.clear();
+    toggleSideMenu()
     history.push("/");
   };
 
@@ -14,18 +18,22 @@ export default function SideMenu({ isOpen, toggleSideMenu }) {
     <Container isOpen={isOpen}>
       <MenuContent>
         <ul>
-          <li>
-            <BsFillPersonFill className="user_icon" />
-            <Link to="/sign-in" onClick={toggleSideMenu}>
-              {" "}
-              Entrar{" "}
-            </Link>
-            /
-            <Link to="/sign-up" onClick={toggleSideMenu}>
-              {" "}
-              Cadastrar
-            </Link>
-          </li>
+          {user.name 
+          ? <li> Olá, {user.name}</li>
+          : <li>
+              <BsFillPersonFill className="user_icon" />
+              <Link to="/sign-in" onClick={toggleSideMenu}>
+                {" "}
+                Entrar{" "}
+              </Link>
+              /
+              <Link to="/sign-up" onClick={toggleSideMenu}>
+                {" "}
+                Cadastrar
+              </Link>
+            </li>
+          }
+          
           <li>
             <Link to="/" onClick={toggleSideMenu}>
               Início
@@ -70,6 +78,8 @@ const MenuContent = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 80%;
+  max-width: 400px;
+  min-width: 280px;
   height: 100%;
   padding: 0 20px;
   background-color: #fff;
