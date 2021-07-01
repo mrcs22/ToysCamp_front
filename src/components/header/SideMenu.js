@@ -10,6 +10,7 @@ export default function SideMenu({ isOpen, toggleSideMenu }) {
 
   const logout = () => {
     localStorage.clear();
+    toggleSideMenu()
     history.push("/");
   };
 
