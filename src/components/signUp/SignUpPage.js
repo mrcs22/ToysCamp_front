@@ -66,7 +66,7 @@ export default function SignUpPage() {
       return alert("As senhas devem ser iguais!");
     }
 
-    const promise = axios.post("https://toyscamp.herokuapp.com//sign-up", {
+    const promise = axios.post("https://toyscamp.herokuapp.com/sign-up", {
       name,
       email,
       password,
