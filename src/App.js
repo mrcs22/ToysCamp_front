@@ -6,6 +6,7 @@ import CategoryPage from "./components/categories/CategoryPage";
 import SignUpPage from "./components/signUp/SignUpPage";
 import GlobalStyle from "./styles/GlobalStyles";
 import SignInPage from "./components/signIn/SignIn";
+import UserContext from "./contexts/UserContext";
 
 export default function App() {
   const [products, setProducts] = useState([]);
@@ -24,45 +25,51 @@ export default function App() {
 
   useEffect(() => {
     fetchProducts();
+    const localUser = localStorage.getItem("toysCampUserData");
+    if (localUser) {
+      setUser(JSON.parse(localUser));
+    }
   }, [fetchProducts]);
 
   return (
     <BrowserRouter>
       <GlobalStyle />
       <Switch>
-        <Route
-          path="/sign-in"
-          exact
-          render={(props) => <SignInPage {...props} setUser={setUser} />}
-        />
-        <Route path="/sign-up" exact component={SignUpPage} />
-        <Route
-          path="/"
-          exact
-          render={(props) => <HomePage {...props} products={products} />}
-        />
-        <Route
-          path="/releases"
-          exact
-          render={(props) => (
-            <CategoryPage
-              {...props}
-              products={products}
-              category={"Lançamentos"}
-            />
-          )}
-        />
-        <Route
-          path="/sales"
-          exact
-          render={(props) => (
-            <CategoryPage
-              {...props}
-              products={products}
-              category={"Promoções"}
-            />
-          )}
-        />
+        <UserContext.Provider value={{ user, setUser }}>
+          <Route
+            path="/sign-in"
+            exact
+            render={(props) => <SignInPage {...props} setUser={setUser} />}
+          />
+          <Route path="/sign-up" exact component={SignUpPage} />
+          <Route
+            path="/"
+            exact
+            render={(props) => <HomePage {...props} products={products} />}
+          />
+          <Route
+            path="/releases"
+            exact
+            render={(props) => (
+              <CategoryPage
+                {...props}
+                products={products}
+                category={"Lançamentos"}
+              />
+            )}
+          />
+          <Route
+            path="/sales"
+            exact
+            render={(props) => (
+              <CategoryPage
+                {...props}
+                products={products}
+                category={"Promoções"}
+              />
+            )}
+          />
+        </UserContext.Provider>
       </Switch>
     </BrowserRouter>
   );
