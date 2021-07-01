@@ -18,4 +18,5 @@ const StyledLink = styled.button`
     color: #293B5F;
     line-height: 17px;
     text-align: center;
+    margin-bottom: 30px;
 `;

@@ -58,6 +58,7 @@ export default function SignUpPage() {
         <Button type="submit" value="Cadastrar" />
       </InputsHolder>
       <AuthPageLink text={"Possui uma conta? Faça login aqui!"} path={"/sign-in"} />
+      <AuthPageLink text={"Voltar para home"} path={"/"} />
     </Container>
   );
 

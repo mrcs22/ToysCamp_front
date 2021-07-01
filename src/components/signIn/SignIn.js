@@ -35,6 +35,7 @@ export default function SignInPage({ setUser }) {
         <Button type="submit" value="Entrar" />
       </InputsHolder>
       <AuthPageLink text={"Primeira vez? Cadastre-se!"} path={"/sign-up"} />
+      <AuthPageLink text={"Voltar para home"} path={"/"} />
     </Container>
   );
 
