@@ -6,6 +6,7 @@ import TextInput from "../general/TextInput";
 import Button from "../general/Button";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import AuthPageLink from "../general/AuthPageLink";
 
 export default function SignUpPage() {
   const history = useHistory();
@@ -56,6 +57,8 @@ export default function SignUpPage() {
         />
         <Button type="submit" value="Cadastrar" />
       </InputsHolder>
+      <AuthPageLink text={"Possui uma conta? Faça login aqui!"} path={"/sign-in"} />
+      <AuthPageLink text={"Voltar para home"} path={"/"} />
     </Container>
   );
 
