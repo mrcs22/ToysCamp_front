@@ -73,6 +73,12 @@ const Carousel = styled.div`
     display: none;
   }
 
+  @media(min-width: 1920px){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   @media(min-width: 1000px) and (max-width: 1900px){
     .carouselButton {
       display: flex;
