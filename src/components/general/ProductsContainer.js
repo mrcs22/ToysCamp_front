@@ -84,7 +84,6 @@ const Carousel = styled.div`
       border-radius: 30px;
       border-style: none;
       background-color: #DBE6FD;
-      z-index: 3;
       font-size: 60px;
       font-weight: 700;
       cursor: pointer;
