@@ -78,6 +78,8 @@ const MenuContent = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 80%;
+  max-width: 400px;
+  min-width: 280px;
   height: 100%;
   padding: 0 20px;
   background-color: #fff;
