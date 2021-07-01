@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Container from "../general/Container";
 import Logo from "../general/Logo";
 import InputsHolder from "../general/InputsHolder";
@@ -6,13 +6,12 @@ import TextInput from "../general/TextInput";
 import Button from "../general/Button";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import UserContext from "../../contexts/UserContext";
+import AuthPageLink from "../general/AuthPageLink";
 
 export default function SignInPage({ setUser }) {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user } = useContext(UserContext);
 
   return (
     <Container>
@@ -35,6 +34,7 @@ export default function SignInPage({ setUser }) {
 
         <Button type="submit" value="Entrar" />
       </InputsHolder>
+      <AuthPageLink text={"Primeira vez? Cadastre-se!"} path={"/sign-up"} />
     </Container>
   );
 
@@ -63,3 +63,4 @@ export default function SignInPage({ setUser }) {
     });
   }
 }
+
