@@ -16,7 +16,7 @@ export default function SideMenu({ isOpen, toggleSideMenu }) {
         <ul>
           <li>
             <BsFillPersonFill className="user_icon" />
-            <Link to="/login" onClick={toggleSideMenu}>
+            <Link to="/sign-in" onClick={toggleSideMenu}>
               {" "}
               Entrar{" "}
             </Link>
