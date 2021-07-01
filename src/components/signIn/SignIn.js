@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Container from "../general/Container";
 import Logo from "../general/Logo";
 import InputsHolder from "../general/InputsHolder";
@@ -6,11 +6,13 @@ import TextInput from "../general/TextInput";
 import Button from "../general/Button";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 
 export default function SignInPage({ setUser }) {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { user } = useContext(UserContext);
 
   return (
     <Container>
@@ -39,7 +41,7 @@ export default function SignInPage({ setUser }) {
   function trySignIn(e) {
     e.preventDefault();
 
-    const promise = axios.post("http://localhost:4000/sign-in", {
+    const promise = axios.post("https://toyscamp.herokuapp.com//sign-in", {
       email,
       password,
     });
