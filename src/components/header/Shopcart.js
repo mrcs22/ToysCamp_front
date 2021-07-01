@@ -27,7 +27,7 @@ export default function Shopcart({ isOpen, toggleShopcart }) {
     promise.catch((e) => {
       console.log(e);
     });
-  }, [user?.token]);
+  }, [user?.token, isOpen]);
 
   return (
     <Container isOpen={isOpen}>
@@ -44,7 +44,7 @@ export default function Shopcart({ isOpen, toggleShopcart }) {
             </li>
           ))}
         </ul>
-        <p>Total: R${(total / 100).toFixed(2)}</p>
+        <p className="total">Total: R${(total / 100).toFixed(2)}</p>
         <div className="shopcartFooter">
           <div className="bar"></div>
           <div>
@@ -83,6 +83,7 @@ const MenuContent = styled.div`
   background-color: #fff;
   z-index: 2;
   font-family: "Saira Stencil One", cursive;
+  font-size: 1.3rem;
 
   & > p {
     text-align: center;
@@ -95,6 +96,7 @@ const MenuContent = styled.div`
     width: 90%;
 
     margin: 0 auto;
+    margin-top: 2.5rem;
     padding: 0 5px;
 
     overflow: hidden;
@@ -118,11 +120,23 @@ const MenuContent = styled.div`
       display: inline-block;
       margin-right: 2rem;
     }
+    @media (max-width: 600px) {
+      font-size: 1rem;
+    }
+
     @media (max-width: 350px) {
+      div {
+        width: 90%;
+      }
+
       p:last-child {
         display: none;
       }
     }
+  }
+
+  .total {
+    font-size: 1.5rem;
   }
   button {
     width: 70px;
