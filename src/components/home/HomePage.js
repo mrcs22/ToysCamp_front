@@ -16,5 +16,5 @@ export default function HomePage({ products }) {
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 110px;
+  margin: 110px auto 0 auto;
 `;
