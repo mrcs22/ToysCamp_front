@@ -12,6 +12,7 @@ export default function SideMenu({ isOpen, toggleSideMenu }) {
     localStorage.clear();
     toggleSideMenu()
     history.push("/");
+    alert("Sua sessão foi encerrada. Volte Sempre!")
   };
 
   return (

@@ -20,10 +20,10 @@ export default function Header() {
 
   return (
     <HeaderContainer sideMenuIsOpen={sideMenuIsOpen}>
-      <MenuIcon onClick={toggleSideMenu} sideMenuIsOpen={sideMenuIsOpen}>
-        <IconBar sideMenuIsOpen={sideMenuIsOpen} />
-        <IconBar sideMenuIsOpen={sideMenuIsOpen} />
-        <IconBar sideMenuIsOpen={sideMenuIsOpen} />
+      <MenuIcon onClick={toggleSideMenu} disabled={shopcartIsOpen}>
+        <IconBar />
+        <IconBar />
+        <IconBar />
       </MenuIcon>
       <Logo />
       <ShopcartButton />
@@ -80,7 +80,8 @@ const MenuIcon = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  z-index: 3;
+  z-index: 2;
+  pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
   span {
     margin-top: 5px;
     font-size: 16px;
