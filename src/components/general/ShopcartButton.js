@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useContext } from "react";
 import { FiShoppingCart } from "react-icons/fi";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import ShopcartContext from "../../contexts/ShopcartContext";
 import UserContext from "../../contexts/UserContext";
 
 export default function ShopcartButton({ productId }) {
   const { user, setUser } = useContext(UserContext);
+  const { setIsLoginNeeded } = useContext(ShopcartContext);
 
   return (
     <Shopcart onClick={() => (productId ? tryAddToShopcart() : showShopcart())}>
@@ -29,7 +30,11 @@ export default function ShopcartButton({ productId }) {
     promise.then(() => {
       alert("adicionado");
     });
-    promise.catch(() => alert("algo deu errado"));
+    promise.catch(() => {
+      localStorage.removeItem("toysCampUserData");
+      setUser({});
+      setIsLoginNeeded(true);
+    });
   }
   function showShopcart() {}
 }
