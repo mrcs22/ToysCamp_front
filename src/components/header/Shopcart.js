@@ -64,7 +64,7 @@ const Container = styled.div`
   top: 0;
   transition: right 0.7s ease;
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
   position: fixed;
   width: 100%;
   height: 100%;
