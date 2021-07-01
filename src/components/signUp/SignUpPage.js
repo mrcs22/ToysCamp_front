@@ -24,6 +24,8 @@ export default function SignUpPage() {
           placeholder="Nome"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          isValueValid={name.length > 2}
+          isInputFilled={name.length > 0}
         />
         <TextInput
           type="email"
@@ -31,6 +33,8 @@ export default function SignUpPage() {
           placeholder="E-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          isValueValid={email.includes("@") && email.length > 2}
+          isInputFilled={email.length > 0}
         />
         <TextInput
           type="password"
@@ -38,6 +42,8 @@ export default function SignUpPage() {
           placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          isValueValid={password.length > 5}
+          isInputFilled={password.length > 0}
         />
         <TextInput
           type="password"
@@ -45,6 +51,8 @@ export default function SignUpPage() {
           placeholder="Confirme a senha"
           value={passwordConfirm}
           onChange={(e) => setPasswordConfirm(e.target.value)}
+          isValueValid={passwordConfirm === password}
+          isInputFilled={passwordConfirm.length > 0}
         />
         <Button type="submit" value="Cadastrar" />
       </InputsHolder>
