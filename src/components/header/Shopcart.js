@@ -15,7 +15,10 @@ export default function Shopcart({ isOpen, toggleShopcart }) {
         Authorization: `Bearer ${user?.token}`,
       },
     };
-    const promise = axios.get("http://localhost:4000/shopcart", config);
+    const promise = axios.get(
+      "https://toyscamp.herokuapp.com/shopcart",
+      config
+    );
 
     promise.then((res) => {
       setItems(res.data);
