@@ -10,7 +10,13 @@ const TextInput = styled.input`
 
   box-shadow: 0px 0px 10px -4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  border: none;
+  border: ${({ isValueValid, isInputFilled }) =>
+    isInputFilled
+      ? isValueValid
+        ? "2px solid green"
+        : "2px solid red"
+      : "none"};
+  outline: none;
 
   margin-bottom: 13px;
 

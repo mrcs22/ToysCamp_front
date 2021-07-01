@@ -30,9 +30,11 @@ export default function App() {
     <BrowserRouter>
       <GlobalStyle />
       <Switch>
-        <Route path="/sign-in" exact>
-          <SignInPage setUser={setUser} />
-        </Route>
+        <Route
+          path="/sign-in"
+          exact
+          render={(props) => <SignInPage {...props} setUser={setUser} />}
+        />
         <Route path="/sign-up" exact component={SignUpPage} />
         <Route
           path="/"
