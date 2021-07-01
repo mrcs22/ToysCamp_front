@@ -24,6 +24,9 @@ export default function ProductsContainer({ category, products }) {
 const Container = styled.div`
   background-color: transparent;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const CategoryTitle = styled.h2`
