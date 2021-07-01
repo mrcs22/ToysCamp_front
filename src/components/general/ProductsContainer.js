@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
+import {RiArrowDropRightFill} from 'react-icons/ri'
+import {RiArrowDropLeftFill} from 'react-icons/ri'
 
 export default function ProductsContainer({ category, products }) {
   const myRef = useRef()
@@ -11,9 +13,20 @@ export default function ProductsContainer({ category, products }) {
     Math.round(Math.random() - 1)
   );
 
-  const spinCarousel = (scrollOffset) =>{
-    myRef.current.scrollLeft += scrollOffset;
-  }
+  const sideScroll = (direction,speed,distance,step) =>{
+    let scrollAmount = 0;
+    var slideTimer = setInterval(function(){
+        if(direction === 'left'){
+            myRef.current.scrollLeft -= step;
+        } else {
+            myRef.current.scrollLeft += step;
+        }
+        scrollAmount += step;
+        if(scrollAmount >= distance){
+            window.clearInterval(slideTimer);
+        }
+    }, speed);
+}
 
   return (
     <Container>
@@ -23,8 +36,8 @@ export default function ProductsContainer({ category, products }) {
         {randomProducts.splice(0, 7).map((product, i) => (
           <ProductCard id={i} product={product} />
         ))}
-        <button className="carouselButton back" onMouseDown={() => spinCarousel(-500)}>{"<"}</button>
-        <button className="carouselButton next" onMouseDown={() => spinCarousel(500)}>{">"}</button>
+        <div className="carouselButton back" onClick={() => sideScroll('left', 5, 400, 5)}><RiArrowDropLeftFill/></div>
+        <div className="carouselButton next" onClick={() => sideScroll('right', 5, 400, 5)}><RiArrowDropRightFill/></div>
         </>
       </Carousel>
     </Container>
@@ -51,16 +64,20 @@ const CategoryTitle = styled.h2`
 const Carousel = styled.div`
   display: flex;
   overflow-x: scroll;
-  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+  &::-webkit-scrollbar {
+  display: none;
+} 
   .carouselButton {
     display: none;
   }
 
   @media(min-width: 1000px) and (max-width: 1900px){
-    overflow-x: hidden;
-
     .carouselButton {
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: absolute;
       height: 60px;
       width: 60px;
@@ -68,7 +85,7 @@ const Carousel = styled.div`
       border-style: none;
       background-color: #DBE6FD;
       z-index: 3;
-      font-size: 35px;
+      font-size: 60px;
       font-weight: 700;
       cursor: pointer;
     }
