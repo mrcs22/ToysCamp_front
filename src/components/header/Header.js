@@ -2,13 +2,20 @@ import styled from "styled-components";
 import Logo from "../general/Logo";
 import ShopcartButton from "../general/ShopcartButton";
 import SideMenu from "./SideMenu";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import Shopcart from "./Shopcart";
+import ShopcartContext from "../../contexts/ShopcartContext";
 
 export default function Header() {
   const [sideMenuIsOpen, setSideMenuIsOpen] = useState(false);
+  const { shopcartIsOpen, setShopcartIsOpen } = useContext(ShopcartContext);
 
   const toggleSideMenu = () => {
     setSideMenuIsOpen(!sideMenuIsOpen);
+  };
+
+  const toggleShopcart = () => {
+    setShopcartIsOpen(!shopcartIsOpen);
   };
 
   return (
@@ -21,6 +28,7 @@ export default function Header() {
       <Logo />
       <ShopcartButton />
       <SideMenu isOpen={sideMenuIsOpen} toggleSideMenu={toggleSideMenu} />
+      <Shopcart isOpen={shopcartIsOpen} toggleShopcart={toggleShopcart} />
     </HeaderContainer>
   );
 }

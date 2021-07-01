@@ -7,7 +7,8 @@ import UserContext from "../../contexts/UserContext";
 
 export default function ShopcartButton({ productId }) {
   const { user, setUser } = useContext(UserContext);
-  const { setIsLoginNeeded } = useContext(ShopcartContext);
+  const { setIsLoginNeeded, shopcartIsOpen, setShopcartIsOpen } =
+    useContext(ShopcartContext);
 
   return (
     <Shopcart onClick={() => (productId ? tryAddToShopcart() : showShopcart())}>
@@ -36,7 +37,9 @@ export default function ShopcartButton({ productId }) {
       setIsLoginNeeded(true);
     });
   }
-  function showShopcart() {}
+  function showShopcart() {
+    setShopcartIsOpen(!shopcartIsOpen);
+  }
 }
 
 const Shopcart = styled.button`
