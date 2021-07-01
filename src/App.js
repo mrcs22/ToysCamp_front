@@ -14,6 +14,7 @@ export default function App() {
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState({});
   const [isLoginNeeded, setIsLoginNeeded] = useState(false);
+  const [shopcartIsOpen, setShopcartIsOpen] = useState(false);
 
   const fetchProducts = useCallback(() => {
     axios
@@ -37,7 +38,14 @@ export default function App() {
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <ShopcartContext.Provider value={{ isLoginNeeded, setIsLoginNeeded }}>
+      <ShopcartContext.Provider
+        value={{
+          isLoginNeeded,
+          setIsLoginNeeded,
+          shopcartIsOpen,
+          setShopcartIsOpen,
+        }}
+      >
         <LoginNeeded />
         <Switch>
           <UserContext.Provider value={{ user, setUser }}>
