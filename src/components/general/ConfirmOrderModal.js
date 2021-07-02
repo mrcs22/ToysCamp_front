@@ -132,6 +132,10 @@ const Container = styled.div`
     font-size: 25px;
     font-weight: 700;
   }
+  ul { 
+    overflow: hidden;
+    overflow-y: scroll;
+  }
   li {
     display: flex;
     justify-content: space-between;
