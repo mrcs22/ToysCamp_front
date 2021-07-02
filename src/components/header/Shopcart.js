@@ -31,8 +31,12 @@ export default function Shopcart({ isOpen, toggleShopcart, confirmModalIsOpen, t
   }, [user?.token]);
 
   const finishOrder = () => {
-    toggleConfirmModal()
-    toggleShopcart()
+    if(items.length > 0){
+      toggleConfirmModal()
+      toggleShopcart()
+    }else{
+      alert("Você ainda não possui itens no carrinho")
+    }
   }
 
   return (

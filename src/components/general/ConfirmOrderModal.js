@@ -1,48 +1,40 @@
+import axios from "axios";
+import { useContext, useState } from "react";
 import styled from "styled-components"
+import UserContext from "../../contexts/UserContext";
 
 export default function ConfirmOrderModal({shopcart, total, confirmModalIsOpen, toggleConfirmModal}){
+    const { user } = useContext(UserContext);
+    const [paymentMethod, setPaymentMethod] = useState("boleto")
+    const [buyerCPF, setBuyerCPF] = useState("")
+
+    const confirmOrder = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+            },
+        };
+        const body = {
+            cpf: buyerCPF,
+            paymentMethod,
+        }
+        const promise = axios.post(
+        "https://toyscamp.herokuapp.com/confirm-order", body, config);
+    
+        promise.then((res) => {
+        });
+    
+        promise.catch((e) => {
+        console.log(e);
+        });
+    }
 
     return(
         <>
             <Container isOpen={confirmModalIsOpen}>
                 <p>Confirme seu pedido.</p>
                 <ul>
-                    <li>
-                        <div>
-                            <span>2x</span>
-                            Testando
-                        </div>
-                        <p>R$ 300,00</p>
-                    </li>
-                    <li>
-                        <div>
-                            <span>2x</span>
-                            Testando
-                        </div>
-                        <p>R$ 300,00</p>
-                    </li>
-                    <li>
-                        <div>
-                            <span>2x</span>
-                            Testando
-                        </div>
-                        <p>R$ 300,00</p>
-                    </li>
-                    <li>
-                        <div>
-                            <span>2x</span>
-                            Testando
-                        </div>
-                        <p>R$ 300,00</p>
-                    </li>
-                    <li>
-                        <div>
-                            <span>2x</span>
-                            Testando
-                        </div>
-                        <p>R$ 300,00</p>
-                    </li>
-                    {/* {shopcart.map((item, i) => (
+                    {shopcart.map((item, i) => (
                         <li key={i}>
                         <div>
                             <span>{item.count}x</span>
@@ -50,13 +42,45 @@ export default function ConfirmOrderModal({shopcart, total, confirmModalIsOpen, 
                         </div>
                         <p>R${(item.price / 100).toFixed(2)}</p>
                         </li>
-                    ))} */}
+                    ))}
                 </ul>
                 <p className="price">Total: R${(total / 100).toFixed(2).replace(".",",")}</p>
-                <div className="buttons_container">
-                    <button className="confirm_button">Confirmar</button>
-                    <button className="back_button" onClick={toggleConfirmModal}>Voltar</button>
+                <div className="payment_info">
+                    <div>
+                        <label for="cpf">CPF:</label>
+                        <input 
+                        name="cpf" 
+                        type="text" 
+                        maxLength={11}
+                        minLength={11}
+                        onChange={(e)=>{setBuyerCPF(e.target.value)}}
+                        required/>
+                    </div>
+                    <div>
+                        <input 
+                            type="radio" 
+                            id="boleto" 
+                            name="payment_method" 
+                            value="boleto" 
+                            onChange={(e)=>{setPaymentMethod(e.target.value)}}
+                            required
+                            checked/>
+                        <label for="boleto">Boleto</label>
+                    </div>
+                    <div>
+                        <input 
+                            type="radio" 
+                            id="cartão" 
+                            name="payment_method" 
+                            value="cartão_crédito" 
+                            onChange={(e)=>{setPaymentMethod(e.target.value)}}/>
+                        <label for="cartão">Cartão de Crédito</label>
+                    </div>
                 </div>
+                <div className="buttons_container">
+                    <button className="confirm_button" onClick={confirmOrder}>Confirmar</button>
+                    <button className="back_button" onClick={toggleConfirmModal}>Voltar</button>
+                </div> 
             </Container>
             <Background isOpen={confirmModalIsOpen}/>
         </>
@@ -123,8 +147,17 @@ const Container = styled.div`
         background-color: #293B5F;
         color: #fff;
     }
+    .payment_info{
+        display: flex;
+        margin: 0 auto;
+        flex-direction: column;
+        width: 100%;
+        div{
+            margin: 10px 0;
+            font-size: 19px;
+        }
+    }
 `
-
 const Background = styled.div`
     display: ${(props) => (props.isOpen ? "flex" : "none")};
     position: fixed;

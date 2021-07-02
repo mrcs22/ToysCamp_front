@@ -23,8 +23,6 @@ export default function Header() {
     setConfirmModalIsOpen(!confirmModalIsOpen);
   };
 
-
-
   return (
     <HeaderContainer sideMenuIsOpen={sideMenuIsOpen}>
       <MenuIcon onClick={toggleSideMenu} disabled={shopcartIsOpen || confirmModalIsOpen}>
