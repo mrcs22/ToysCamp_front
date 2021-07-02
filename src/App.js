@@ -10,7 +10,7 @@ import UserContext from "./contexts/UserContext";
 import LoginNeeded from "./components/general/LoginNeeded";
 import ShopcartContext from "./contexts/ShopcartContext";
 
-export default function App() {
+ export default function App() {
   const [products, setProducts] = useState([]);
   const [items, setItems] = useState([]);
   const [user, setUser] = useState({});
@@ -39,7 +39,7 @@ export default function App() {
     promise.catch((e) => {
       console.log(e);
     });
-  }, [user?.token]);
+  }, [user.token]);
 
   const fetchProducts = useCallback(() => {
     axios

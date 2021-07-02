@@ -1,19 +1,22 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
 import { RiArrowDropRightFill } from "react-icons/ri";
 import { RiArrowDropLeftFill } from "react-icons/ri";
 import Loader from "react-loader-spinner";
 
-export default function ProductsContainer({
+const ProductsContainer = ({
   category,
   products,
   cartItems,
   getShopcartItems,
-}) {
+}) => {
   const myRef = useRef();
   const filteredProducts = products.filter(
     (product) => product.category === category
+  );
+  const randomProducts = filteredProducts.sort(() =>
+    Math.round(Math.random() - 1)
   );
 
   const sideScroll = (direction, speed, distance, step) => {
@@ -36,8 +39,8 @@ export default function ProductsContainer({
       <CategoryTitle>{category}</CategoryTitle>
       <Carousel ref={myRef}>
         <>
-          {filteredProducts.length > 0 ? (
-            filteredProducts
+          {randomProducts.length > 0 ? (
+            randomProducts
               .splice(0, 7)
               .map((product, i) => (
                 <ProductCard
@@ -67,7 +70,7 @@ export default function ProductsContainer({
       </Carousel>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   position: relative;
@@ -143,3 +146,6 @@ const LoaderDiv = styled.div`
   justify-content: center;
   width: 100vh;
 `;
+const MemoizeProductsContainer = React.memo(ProductsContainer);
+
+export default MemoizeProductsContainer;
