@@ -7,10 +7,9 @@ import ProductsContainer from "../general/ProductsContainer";
 import Header from "../header/Header";
 
 export default function HomePage({ products }) {
-  const [items, setItems] = useState([]);
   const { user } = useContext(UserContext);
-  console.log("from homepage ", items);
 
+  const [items, setItems] = useState([]);
   const getShopcartItems = useCallback(() => {
     const config = {
       headers: {
@@ -33,7 +32,7 @@ export default function HomePage({ products }) {
 
   useEffect(() => {
     getShopcartItems();
-  }, [user.token]);
+  }, [user.token, getShopcartItems]);
 
   return (
     <Container>

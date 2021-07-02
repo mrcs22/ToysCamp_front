@@ -14,9 +14,6 @@ export default function ProductsContainer({
   const filteredProducts = products.filter(
     (product) => product.category === category
   );
-  const randomProducts = filteredProducts.sort(() =>
-    Math.round(Math.random() - 1)
-  );
 
   console.log("from pcontainer  ", cartItems);
   const sideScroll = (direction, speed, distance, step) => {
@@ -39,7 +36,7 @@ export default function ProductsContainer({
       <CategoryTitle>{category}</CategoryTitle>
       <Carousel ref={myRef}>
         <>
-          {randomProducts.splice(0, 7).map((product, i) => (
+          {filteredProducts.splice(0, 7).map((product, i) => (
             <ProductCard
               id={i}
               product={product}
