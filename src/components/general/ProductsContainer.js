@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ProductCard from "./ProductCard";
 import { RiArrowDropRightFill } from "react-icons/ri";
 import { RiArrowDropLeftFill } from "react-icons/ri";
+import Loader from "react-loader-spinner";
 
 const ProductsContainer = ({
   category,
@@ -10,7 +11,6 @@ const ProductsContainer = ({
   cartItems,
   getShopcartItems,
 }) => {
-
   const myRef = useRef();
   const filteredProducts = products.filter(
     (product) => product.category === category
@@ -19,7 +19,6 @@ const ProductsContainer = ({
     Math.round(Math.random() - 1)
   );
 
-  console.log("from pcontainer  ", cartItems);
   const sideScroll = (direction, speed, distance, step) => {
     let scrollAmount = 0;
     var slideTimer = setInterval(function () {
@@ -40,14 +39,21 @@ const ProductsContainer = ({
       <CategoryTitle>{category}</CategoryTitle>
       <Carousel ref={myRef}>
         <>
-          {randomProducts.splice(0, 7).map((product, i) => (
-            <ProductCard
-              id={i}
-              product={product}
-              cartItems={cartItems}
-              getShopcartItems={getShopcartItems}
-            />
-          ))}
+          {randomProducts.length > 0 ? (
+            randomProducts
+              .splice(0, 7)
+              .map((product, i) => (
+                <ProductCard
+                  key={product.id}
+                  id={i}
+                  product={product}
+                  cartItems={cartItems}
+                  getShopcartItems={getShopcartItems}
+                />
+              ))
+          ) : (
+            <PuffLoader />
+          )}
           <div
             className="carouselButton back"
             onClick={() => sideScroll("left", 5, 400, 5)}
@@ -64,7 +70,7 @@ const ProductsContainer = ({
       </Carousel>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   position: relative;
@@ -127,6 +133,19 @@ const Carousel = styled.div`
   }
 `;
 
-const MemoizeProductsContainer = React.memo(ProductsContainer)
+function PuffLoader() {
+  return (
+    <LoaderDiv>
+      <Loader type="Puff" color="#00BFFF" height={100} width={100} />
+    </LoaderDiv>
+  );
+}
 
-export default MemoizeProductsContainer
+const LoaderDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100vh;
+`;
+const MemoizeProductsContainer = React.memo(ProductsContainer);
+
+export default MemoizeProductsContainer;
