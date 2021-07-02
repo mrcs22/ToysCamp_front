@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ProductCard from "./ProductCard";
 import { RiArrowDropRightFill } from "react-icons/ri";
 import { RiArrowDropLeftFill } from "react-icons/ri";
+import Loader from "react-loader-spinner";
 
 export default function ProductsContainer({
   category,
@@ -35,15 +36,21 @@ export default function ProductsContainer({
       <CategoryTitle>{category}</CategoryTitle>
       <Carousel ref={myRef}>
         <>
-          {filteredProducts.splice(0, 7).map((product, i) => (
-            <ProductCard
-              key={product.id}
-              id={i}
-              product={product}
-              cartItems={cartItems}
-              getShopcartItems={getShopcartItems}
-            />
-          ))}
+          {filteredProducts.length > 0 ? (
+            filteredProducts
+              .splice(0, 7)
+              .map((product, i) => (
+                <ProductCard
+                  key={product.id}
+                  id={i}
+                  product={product}
+                  cartItems={cartItems}
+                  getShopcartItems={getShopcartItems}
+                />
+              ))
+          ) : (
+            <PuffLoader />
+          )}
           <div
             className="carouselButton back"
             onClick={() => sideScroll("left", 5, 400, 5)}
@@ -121,4 +128,18 @@ const Carousel = styled.div`
       right: 10px;
     }
   }
+`;
+
+function PuffLoader() {
+  return (
+    <LoaderDiv>
+      <Loader type="Puff" color="#00BFFF" height={100} width={100} />
+    </LoaderDiv>
+  );
+}
+
+const LoaderDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100vh;
 `;
