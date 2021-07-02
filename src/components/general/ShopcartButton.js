@@ -18,7 +18,10 @@ export default function ShopcartButton({
   const [isAddingtoCart, setIsAddingtoCart] = useState(false);
 
   return (
-    <Shopcart onClick={() => (productId ? tryAddToShopcart() : showShopcart())}>
+    <Shopcart
+      itemCount={itemCount}
+      onClick={() => (productId ? tryAddToShopcart() : showShopcart())}
+    >
       {itemCount > 0 && <span>{itemCount}</span>}
       {isAddingtoCart ? DotsLoader : <FiShoppingCart />}
     </Shopcart>
@@ -72,10 +75,10 @@ const Shopcart = styled.button`
     align-items: center;
     position: absolute;
     right: -13px;
-    top: -5px;
+    top: ${({ itemCount }) => (itemCount > 99 ? "-10px" : "-5px")};
     background-color: rgba(255, 0, 0, 0.8);
     border-radius: 50%;
-    width: 1.5rem;
+    width: ${({ itemCount }) => (itemCount > 99 ? "2.5rem" : "1.5rem")};
     height: 1.5rem;
   }
 `;
