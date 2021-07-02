@@ -10,7 +10,7 @@ import UserContext from "./contexts/UserContext";
 import LoginNeeded from "./components/general/LoginNeeded";
 import ShopcartContext from "./contexts/ShopcartContext";
 
- export default function App() {
+export default function App() {
   const [products, setProducts] = useState([]);
   const [items, setItems] = useState([]);
   const [user, setUser] = useState({});
@@ -23,10 +23,6 @@ import ShopcartContext from "./contexts/ShopcartContext";
         Authorization: `Bearer ${user?.token}`,
       },
     };
-
-    if (!user?.token) {
-      return;
-    }
     const promise = axios.get(
       "https://toyscamp.herokuapp.com/shopcart",
       config
@@ -39,7 +35,7 @@ import ShopcartContext from "./contexts/ShopcartContext";
     promise.catch((e) => {
       console.log(e);
     });
-  }, [user.token]);
+  }, [user?.token]);
 
   const fetchProducts = useCallback(() => {
     axios
