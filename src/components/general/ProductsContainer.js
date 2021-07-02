@@ -15,7 +15,6 @@ export default function ProductsContainer({
     (product) => product.category === category
   );
 
-  console.log("from pcontainer  ", cartItems);
   const sideScroll = (direction, speed, distance, step) => {
     let scrollAmount = 0;
     var slideTimer = setInterval(function () {
@@ -38,6 +37,7 @@ export default function ProductsContainer({
         <>
           {filteredProducts.splice(0, 7).map((product, i) => (
             <ProductCard
+              key={product.id}
               id={i}
               product={product}
               cartItems={cartItems}

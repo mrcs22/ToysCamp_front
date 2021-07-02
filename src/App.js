@@ -23,6 +23,10 @@ export default function App() {
         Authorization: `Bearer ${user?.token}`,
       },
     };
+
+    if (!user?.token) {
+      return;
+    }
     const promise = axios.get(
       "https://toyscamp.herokuapp.com/shopcart",
       config
