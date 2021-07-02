@@ -15,7 +15,7 @@ export default function CategoryPage({
 
   return (
     <>
-      <Header items={items} />
+      <Header items={items} getShopcartItems={getShopcartItems} />
       <Container>
         <CategoryTitle>{category}</CategoryTitle>
         {releasesProducts.map((product, i) => (
