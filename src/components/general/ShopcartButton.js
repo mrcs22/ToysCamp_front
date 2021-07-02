@@ -16,7 +16,7 @@ export default function ShopcartButton({
 
   return (
     <Shopcart onClick={() => (productId ? tryAddToShopcart() : showShopcart())}>
-      {itemCount && <span>{itemCount}</span>}
+      {itemCount > 0 && <span>{itemCount}</span>}
       <FiShoppingCart />
     </Shopcart>
   );

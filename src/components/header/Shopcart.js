@@ -1,39 +1,13 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import UserContext from "../../contexts/UserContext";
 import ConfirmOrderModal from "../general/ConfirmOrderModal";
-
 export default function Shopcart({
   isOpen,
   toggleShopcart,
   confirmModalIsOpen,
   toggleConfirmModal,
+  items,
 }) {
-  const [items, setItems] = useState([]);
-  const { user } = useContext(UserContext);
-
   const total = items.reduce((t, i) => t + i.price * i.count, 0);
-
-  useEffect(() => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    };
-    const promise = axios.get(
-      "https://toyscamp.herokuapp.com/shopcart",
-      config
-    );
-
-    promise.then((res) => {
-      setItems(res.data);
-    });
-
-    promise.catch((e) => {
-      console.log(e);
-    });
-  }, [user?.token, isOpen]);
 
   const finishOrder = () => {
     if (items.length > 0) {

@@ -6,10 +6,12 @@ import { useContext, useState } from "react";
 import Shopcart from "./Shopcart";
 import ShopcartContext from "../../contexts/ShopcartContext";
 
-export default function Header() {
+export default function Header({ items }) {
   const [sideMenuIsOpen, setSideMenuIsOpen] = useState(false);
-  const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false)
+  const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
   const { shopcartIsOpen, setShopcartIsOpen } = useContext(ShopcartContext);
+
+  const totalItemsCount = items.reduce((t, i) => t + i.count, 0);
 
   const toggleSideMenu = () => {
     setSideMenuIsOpen(!sideMenuIsOpen);
@@ -25,19 +27,23 @@ export default function Header() {
 
   return (
     <HeaderContainer sideMenuIsOpen={sideMenuIsOpen}>
-      <MenuIcon onClick={toggleSideMenu} disabled={shopcartIsOpen || confirmModalIsOpen}>
+      <MenuIcon
+        onClick={toggleSideMenu}
+        disabled={shopcartIsOpen || confirmModalIsOpen}
+      >
         <IconBar />
         <IconBar />
         <IconBar />
       </MenuIcon>
       <Logo />
-      <ShopcartButton />
+      <ShopcartButton itemCount={totalItemsCount} />
       <SideMenu isOpen={sideMenuIsOpen} toggleSideMenu={toggleSideMenu} />
-      <Shopcart 
-        isOpen={shopcartIsOpen} 
+      <Shopcart
+        isOpen={shopcartIsOpen}
         toggleShopcart={toggleShopcart}
-        confirmModalIsOpen={confirmModalIsOpen} 
-        toggleConfirmModal={toggleConfirmModal} 
+        confirmModalIsOpen={confirmModalIsOpen}
+        toggleConfirmModal={toggleConfirmModal}
+        items={items}
       />
     </HeaderContainer>
   );

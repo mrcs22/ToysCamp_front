@@ -1,42 +1,12 @@
-import axios from "axios";
-import { useCallback, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import UserContext from "../../contexts/UserContext";
 import PageFooter from "../general/PageFooter";
 import ProductsContainer from "../general/ProductsContainer";
 import Header from "../header/Header";
 
-export default function HomePage({ products }) {
-  const { user } = useContext(UserContext);
-
-  const [items, setItems] = useState([]);
-  const getShopcartItems = useCallback(() => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    };
-    const promise = axios.get(
-      "https://toyscamp.herokuapp.com/shopcart",
-      config
-    );
-
-    promise.then((res) => {
-      setItems(res.data);
-    });
-
-    promise.catch((e) => {
-      console.log(e);
-    });
-  }, [user?.token]);
-
-  useEffect(() => {
-    getShopcartItems();
-  }, [user.token, getShopcartItems]);
-
+export default function HomePage({ products, items, getShopcartItems }) {
   return (
     <Container>
-      <Header />
+      <Header items={items} />
       <ProductsContainer
         category={"Lançamentos"}
         products={products}
