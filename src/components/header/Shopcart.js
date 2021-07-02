@@ -126,10 +126,10 @@ const MenuContent = styled.div`
     }
   }
   .empty_message{
-    margin: 300px auto;
-    font-size: 35px;
-    width: 350px;
+    margin: 50% auto;
+    font-size: 30px;
     text-align: center;
+
   }
   .total {
     font-size: 1.5rem;
