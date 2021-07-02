@@ -8,6 +8,7 @@ import ShopcartContext from "../../contexts/ShopcartContext";
 
 export default function Header() {
   const [sideMenuIsOpen, setSideMenuIsOpen] = useState(false);
+  const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false)
   const { shopcartIsOpen, setShopcartIsOpen } = useContext(ShopcartContext);
 
   const toggleSideMenu = () => {
@@ -18,9 +19,13 @@ export default function Header() {
     setShopcartIsOpen(!shopcartIsOpen);
   };
 
+  const toggleConfirmModal = () => {
+    setConfirmModalIsOpen(!confirmModalIsOpen);
+  };
+
   return (
     <HeaderContainer sideMenuIsOpen={sideMenuIsOpen}>
-      <MenuIcon onClick={toggleSideMenu} disabled={shopcartIsOpen}>
+      <MenuIcon onClick={toggleSideMenu} disabled={shopcartIsOpen || confirmModalIsOpen}>
         <IconBar />
         <IconBar />
         <IconBar />
@@ -28,7 +33,12 @@ export default function Header() {
       <Logo />
       <ShopcartButton />
       <SideMenu isOpen={sideMenuIsOpen} toggleSideMenu={toggleSideMenu} />
-      <Shopcart isOpen={shopcartIsOpen} toggleShopcart={toggleShopcart} />
+      <Shopcart 
+        isOpen={shopcartIsOpen} 
+        toggleShopcart={toggleShopcart}
+        confirmModalIsOpen={confirmModalIsOpen} 
+        toggleConfirmModal={toggleConfirmModal} 
+      />
     </HeaderContainer>
   );
 }

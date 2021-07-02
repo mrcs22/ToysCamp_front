@@ -33,21 +33,11 @@ export default function ProductsContainer({ category, products }) {
       <CategoryTitle>{category}</CategoryTitle>
       <Carousel ref={myRef}>
         <>
-          {randomProducts.splice(0, 7).map((product, i) => (
-            <ProductCard id={i} product={product} />
-          ))}
-          <div
-            className="carouselButton back"
-            onClick={() => sideScroll("left", 5, 400, 5)}
-          >
-            <RiArrowDropLeftFill />
-          </div>
-          <div
-            className="carouselButton next"
-            onClick={() => sideScroll("right", 5, 400, 5)}
-          >
-            <RiArrowDropRightFill />
-          </div>
+        {randomProducts.splice(0, 7).map((product, i) => (
+          <ProductCard key={i} id={product.id} product={product} />
+        ))}
+        <div className="carouselButton back" onClick={() => sideScroll('left', 5, 400, 5)}><RiArrowDropLeftFill/></div>
+        <div className="carouselButton next" onClick={() => sideScroll('right', 5, 400, 5)}><RiArrowDropRightFill/></div>
         </>
       </Carousel>
     </Container>
