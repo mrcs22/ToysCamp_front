@@ -18,6 +18,9 @@ export default function App() {
   const [shopcartIsOpen, setShopcartIsOpen] = useState(false);
 
   const getShopcartItems = useCallback(() => {
+    if (!user?.token) {
+      return;
+    }
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
