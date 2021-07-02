@@ -4,7 +4,7 @@ import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 import ConfirmOrderModal from "../general/ConfirmOrderModal";
 
-export default function Shopcart({ isOpen, toggleShopcart }) {
+export default function Shopcart({ isOpen, toggleShopcart, confirmModalIsOpen, toggleConfirmModal }) {
   const [items, setItems] = useState([]);
   const { user } = useContext(UserContext);
 
@@ -31,7 +31,7 @@ export default function Shopcart({ isOpen, toggleShopcart }) {
   }, [user?.token]);
 
   const finishOrder = () => {
-
+    toggleConfirmModal()
     toggleShopcart()
   }
 
@@ -60,7 +60,12 @@ export default function Shopcart({ isOpen, toggleShopcart }) {
         </div>
       </MenuContent>
       <Background onClick={toggleShopcart} isOpen={isOpen} />
-      <ConfirmOrderModal total={total} shopcart={items}/>
+      <ConfirmOrderModal 
+        total={total} 
+        shopcart={items} 
+        confirmModalIsOpen={confirmModalIsOpen} 
+        toggleConfirmModal={toggleConfirmModal}
+      />
     </Container>
   );
 }

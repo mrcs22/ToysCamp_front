@@ -1,10 +1,10 @@
 import styled from "styled-components"
 
-export default function ConfirmOrderModal({shopcart, total}){
+export default function ConfirmOrderModal({shopcart, total, confirmModalIsOpen, toggleConfirmModal}){
 
     return(
         <>
-            <Container>
+            <Container isOpen={confirmModalIsOpen}>
                 <p>Confirme seu pedido.</p>
                 <ul>
                     <li>
@@ -55,17 +55,17 @@ export default function ConfirmOrderModal({shopcart, total}){
                 <p className="price">Total: R${(total / 100).toFixed(2).replace(".",",")}</p>
                 <div className="buttons_container">
                     <button className="confirm_button">Confirmar</button>
-                    <button className="back_button">Voltar</button>
+                    <button className="back_button" onClick={toggleConfirmModal}>Voltar</button>
                 </div>
             </Container>
-            <Background />
+            <Background isOpen={confirmModalIsOpen}/>
         </>
     )
 }
 
 const Container = styled.div`
     background-color: #fff;
-    display: flex;
+    display: ${(props) => (props.isOpen ? "flex" : "none")};
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
@@ -77,6 +77,7 @@ const Container = styled.div`
     max-width: 600px;
     inset: 0px;
     margin: auto;
+    z-index: 4;
     font-size: 22px;
     padding: 20px;
     border-radius: 9px;
@@ -125,10 +126,12 @@ const Container = styled.div`
 `
 
 const Background = styled.div`
+    display: ${(props) => (props.isOpen ? "flex" : "none")};
     position: fixed;
     inset: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: -1;
+    z-index: 3;
+    pointer-events: none;
 `
