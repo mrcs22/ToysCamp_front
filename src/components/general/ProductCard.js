@@ -1,19 +1,25 @@
 import styled from "styled-components";
 import ShopcartButton from "./ShopcartButton";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, cartItems, getShopcartItems }) {
   const { id, name, image, price, category } = product;
+  const cartItem = cartItems.filter((i) => i.id === id);
+  const itemCount = cartItem[0]?.count;
 
   return (
     <Container>
       <CategoryStrip>
         {category === "Lançamentos" ? "Novidade" : "Desconto"}
       </CategoryStrip>
-      <StyledImage src={`https://toyscamp.herokuapp.com${image}`} alt={name}/>
+      <StyledImage src={`https://toyscamp.herokuapp.com${image}`} alt={name} />
       <ProductName>{name}</ProductName>
       <CardFooter>
         <span>R$ {(price / 100).toFixed(2).replace(".", ",")}</span>
-        <ShopcartButton productId={id} />
+        <ShopcartButton
+          productId={id}
+          itemCount={itemCount}
+          getShopcartItems={getShopcartItems}
+        />
       </CardFooter>
     </Container>
   );

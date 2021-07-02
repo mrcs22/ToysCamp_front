@@ -5,13 +5,18 @@ import styled from "styled-components";
 import ShopcartContext from "../../contexts/ShopcartContext";
 import UserContext from "../../contexts/UserContext";
 
-export default function ShopcartButton({ productId }) {
+export default function ShopcartButton({
+  productId,
+  itemCount,
+  getShopcartItems,
+}) {
   const { user, setUser } = useContext(UserContext);
   const { setIsLoginNeeded, shopcartIsOpen, setShopcartIsOpen } =
     useContext(ShopcartContext);
 
   return (
     <Shopcart onClick={() => (productId ? tryAddToShopcart() : showShopcart())}>
+      {itemCount && <span>{itemCount}</span>}
       <FiShoppingCart />
     </Shopcart>
   );
@@ -29,7 +34,7 @@ export default function ShopcartButton({ productId }) {
       config
     );
     promise.then(() => {
-      alert("adicionado");
+      getShopcartItems();
     });
     promise.catch(() => {
       localStorage.removeItem("toysCampUserData");
@@ -53,4 +58,18 @@ const Shopcart = styled.button`
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
+  position: relative;
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -13px;
+    top: -5px;
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 `;
