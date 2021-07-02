@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import styled from "styled-components";
 import ShopcartContext from "../../contexts/ShopcartContext";
 import UserContext from "../../contexts/UserContext";
+import Loader from "react-loader-spinner";
 
 export default function ShopcartButton({
   productId,
@@ -14,14 +15,17 @@ export default function ShopcartButton({
   const { setIsLoginNeeded, shopcartIsOpen, setShopcartIsOpen } =
     useContext(ShopcartContext);
 
+  const [isAddingtoCart, setIsAddingtoCart] = useState(false);
+
   return (
     <Shopcart onClick={() => (productId ? tryAddToShopcart() : showShopcart())}>
       {itemCount > 0 && <span>{itemCount}</span>}
-      <FiShoppingCart />
+      {isAddingtoCart ? DotsLoader : <FiShoppingCart />}
     </Shopcart>
   );
 
   function tryAddToShopcart() {
+    setIsAddingtoCart(true);
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -35,10 +39,12 @@ export default function ShopcartButton({
     );
     promise.then(() => {
       getShopcartItems();
+      setIsAddingtoCart(false);
     });
     promise.catch(() => {
       localStorage.removeItem("toysCampUserData");
       setUser({});
+      setIsAddingtoCart(false);
       setIsLoginNeeded(true);
     });
   }
@@ -73,3 +79,7 @@ const Shopcart = styled.button`
     height: 1.5rem;
   }
 `;
+
+const DotsLoader = (
+  <Loader type="ThreeDots" color="#00BFFF" height={15} width={30} />
+);
