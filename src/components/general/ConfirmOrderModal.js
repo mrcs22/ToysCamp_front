@@ -16,8 +16,11 @@ export default function ConfirmOrderModal({
   const [buyerCPF, setBuyerCPF] = useState("");
   const [isClosingOrder, setIsClosingOrder] = useState(false);
 
+  const [closingOrderFailed, setClosingOrderFailed] = useState(false);
+
   const confirmOrder = () => {
     setIsClosingOrder(true);
+    setClosingOrderFailed(false);
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -41,6 +44,7 @@ export default function ConfirmOrderModal({
 
     promise.catch((e) => {
       setIsClosingOrder(false);
+      setClosingOrderFailed(true);
       console.log(e);
     });
   };
@@ -49,6 +53,7 @@ export default function ConfirmOrderModal({
     <>
       <Container isOpen={confirmModalIsOpen}>
         <p>Confirme seu pedido.</p>
+        {closingOrderFailed && <FailWarning>Ocorreu Um erro.</FailWarning>}
         <ul>
           {shopcart.map((item, i) => (
             <li key={i}>
@@ -145,7 +150,7 @@ const Container = styled.div`
     height: calc(100vh - 400px);
     width: 90%;
     margin: 0 auto;
-    margin-top: 2.5rem;
+    margin-top: 1rem;
     padding: 0 5px;
 
     overflow: hidden;
@@ -215,3 +220,10 @@ const Background = styled.div`
 const DotsLoader = (
   <Loader type="ThreeDots" color="#00BFFF" height={30} width={30} />
 );
+
+const FailWarning = styled.p`
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: red;
+`;
