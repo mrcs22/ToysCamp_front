@@ -144,8 +144,8 @@ function PuffLoader() {
 const LoaderDiv = styled.div`
   display: flex;
   justify-content: center;
-  width: 100vw;
+  width: 100vh;
 `;
-const MemoizeProductsContainer = React.memo(ProductsContainer);
 
+const MemoizeProductsContainer = React.memo(ProductsContainer);
 export default MemoizeProductsContainer;
