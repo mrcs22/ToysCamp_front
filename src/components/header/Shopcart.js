@@ -28,7 +28,7 @@ export default function Shopcart({ isOpen, toggleShopcart, confirmModalIsOpen, t
     promise.catch((e) => {
       console.log(e);
     });
-  }, [user?.token]);
+  }, [user?.token, isOpen]);
 
   const finishOrder = () => {
     if(items.length > 0){
@@ -54,7 +54,7 @@ export default function Shopcart({ isOpen, toggleShopcart, confirmModalIsOpen, t
             </li>
           ))}
         </ul>
-        <p>Total: R${(total / 100).toFixed(2)}</p>
+        <p className="total">Total: R${(total / 100).toFixed(2)}</p>
         <div className="shopcartFooter">
           <div className="bar"></div>
           <div>
@@ -99,6 +99,7 @@ const MenuContent = styled.div`
   background-color: #fff;
   z-index: 2;
   font-family: "Saira Stencil One", cursive;
+  font-size: 1.3rem;
 
   & > p {
     text-align: center;
@@ -109,8 +110,8 @@ const MenuContent = styled.div`
   & > ul {
     height: calc(100vh - 300px);
     width: 90%;
-
-    margin: 40px auto 0 auto;
+    margin: 0 auto;
+    margin-top: 2.5rem;
     padding: 0 5px;
 
     overflow: hidden;
@@ -133,11 +134,23 @@ const MenuContent = styled.div`
       display: inline-block;
       margin-right: 2rem;
     }
+    @media (max-width: 600px) {
+      font-size: 1rem;
+    }
+
     @media (max-width: 350px) {
+      div {
+        width: 90%;
+      }
+
       p:last-child {
         display: none;
       }
     }
+  }
+
+  .total {
+    font-size: 1.5rem;
   }
   button {
     width: 70px;

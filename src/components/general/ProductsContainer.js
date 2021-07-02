@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
-import {RiArrowDropRightFill} from 'react-icons/ri'
-import {RiArrowDropLeftFill} from 'react-icons/ri'
+import { RiArrowDropRightFill } from "react-icons/ri";
+import { RiArrowDropLeftFill } from "react-icons/ri";
 
 export default function ProductsContainer({ category, products }) {
-  const myRef = useRef()
+  const myRef = useRef();
   const filteredProducts = products.filter(
     (product) => product.category === category
   );
@@ -13,20 +13,20 @@ export default function ProductsContainer({ category, products }) {
     Math.round(Math.random() - 1)
   );
 
-  const sideScroll = (direction,speed,distance,step) =>{
+  const sideScroll = (direction, speed, distance, step) => {
     let scrollAmount = 0;
-    var slideTimer = setInterval(function(){
-        if(direction === 'left'){
-            myRef.current.scrollLeft -= step;
-        } else {
-            myRef.current.scrollLeft += step;
-        }
-        scrollAmount += step;
-        if(scrollAmount >= distance){
-            window.clearInterval(slideTimer);
-        }
+    var slideTimer = setInterval(function () {
+      if (direction === "left") {
+        myRef.current.scrollLeft -= step;
+      } else {
+        myRef.current.scrollLeft += step;
+      }
+      scrollAmount += step;
+      if (scrollAmount >= distance) {
+        window.clearInterval(slideTimer);
+      }
     }, speed);
-}
+  };
 
   return (
     <Container>
@@ -45,7 +45,7 @@ export default function ProductsContainer({ category, products }) {
 }
 
 const Container = styled.div`
-  position: relative; 
+  position: relative;
   background-color: transparent;
   max-width: 100%;
   margin: 0 auto;
@@ -67,19 +67,19 @@ const Carousel = styled.div`
   -ms-overflow-style: none;
   overflow: -moz-scrollbars-none;
   &::-webkit-scrollbar {
-  display: none;
-} 
+    display: none;
+  }
   .carouselButton {
     display: none;
   }
 
-  @media(min-width: 1920px){
+  @media (min-width: 1920px) {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  @media(min-width: 1000px) and (max-width: 1900px){
+  @media (min-width: 1000px) and (max-width: 1900px) {
     .carouselButton {
       display: flex;
       justify-content: center;
@@ -89,19 +89,18 @@ const Carousel = styled.div`
       width: 60px;
       border-radius: 30px;
       border-style: none;
-      background-color: #DBE6FD;
+      background-color: #dbe6fd;
       font-size: 60px;
       font-weight: 700;
       cursor: pointer;
     }
-    .back{
+    .back {
       top: 250px;
       left: 10px;
     }
-    .next{
+    .next {
       top: 250px;
       right: 10px;
     }
   }
 `;
-
