@@ -3,18 +3,28 @@ import PageFooter from "../general/PageFooter";
 import ProductSmallCard from "../general/ProductSmallCard";
 import Header from "../header/Header";
 
-export default function CategoryPage({ products, category }) {
+export default function CategoryPage({
+  products,
+  category,
+  items,
+  getShopcartItems,
+}) {
   const releasesProducts = products.filter(
     (product) => product.category === category
   );
 
   return (
     <>
-      <Header />
+      <Header items={items} />
       <Container>
         <CategoryTitle>{category}</CategoryTitle>
         {releasesProducts.map((product, i) => (
-          <ProductSmallCard key={i} product={product} />
+          <ProductSmallCard
+            key={i}
+            product={product}
+            cartItems={items}
+            getShopcartItems={getShopcartItems}
+          />
         ))}
       </Container>
       <PageFooter />

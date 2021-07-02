@@ -1,22 +1,31 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import styled from "styled-components";
 import ShopcartContext from "../../contexts/ShopcartContext";
 import UserContext from "../../contexts/UserContext";
+import Loader from "react-loader-spinner";
 
-export default function ShopcartButton({ productId }) {
+export default function ShopcartButton({
+  productId,
+  itemCount,
+  getShopcartItems,
+}) {
   const { user, setUser } = useContext(UserContext);
   const { setIsLoginNeeded, shopcartIsOpen, setShopcartIsOpen } =
     useContext(ShopcartContext);
 
+  const [isAddingtoCart, setIsAddingtoCart] = useState(false);
+
   return (
     <Shopcart onClick={() => (productId ? tryAddToShopcart() : showShopcart())}>
-      <FiShoppingCart />
+      {itemCount > 0 && <span>{itemCount}</span>}
+      {isAddingtoCart ? DotsLoader : <FiShoppingCart />}
     </Shopcart>
   );
 
   function tryAddToShopcart() {
+    setIsAddingtoCart(true);
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -29,11 +38,13 @@ export default function ShopcartButton({ productId }) {
       config
     );
     promise.then(() => {
-      alert("adicionado");
+      getShopcartItems();
+      setIsAddingtoCart(false);
     });
     promise.catch(() => {
       localStorage.removeItem("toysCampUserData");
       setUser({});
+      setIsAddingtoCart(false);
       setIsLoginNeeded(true);
     });
   }
@@ -53,4 +64,22 @@ const Shopcart = styled.button`
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
+  position: relative;
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -13px;
+    top: -5px;
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 `;
+
+const DotsLoader = (
+  <Loader type="ThreeDots" color="#00BFFF" height={15} width={30} />
+);

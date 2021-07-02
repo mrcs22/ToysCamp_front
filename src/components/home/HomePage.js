@@ -3,12 +3,22 @@ import PageFooter from "../general/PageFooter";
 import ProductsContainer from "../general/ProductsContainer";
 import Header from "../header/Header";
 
-export default function HomePage({ products }) {
+export default function HomePage({ products, items, getShopcartItems }) {
   return (
     <Container>
-      <Header />
-      <ProductsContainer category={"Lançamentos"} products={products} />
-      <ProductsContainer category={"Promoções"} products={products} />
+      <Header items={items} />
+      <ProductsContainer
+        category={"Lançamentos"}
+        products={products}
+        cartItems={items}
+        getShopcartItems={getShopcartItems}
+      />
+      <ProductsContainer
+        category={"Promoções"}
+        products={products}
+        cartItems={items}
+        getShopcartItems={getShopcartItems}
+      />
       <PageFooter />
     </Container>
   );

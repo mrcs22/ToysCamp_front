@@ -1,43 +1,22 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import UserContext from "../../contexts/UserContext";
 import ConfirmOrderModal from "../general/ConfirmOrderModal";
-
-export default function Shopcart({ isOpen, toggleShopcart, confirmModalIsOpen, toggleConfirmModal }) {
-  const [items, setItems] = useState([]);
-  const { user } = useContext(UserContext);
-
+export default function Shopcart({
+  isOpen,
+  toggleShopcart,
+  confirmModalIsOpen,
+  toggleConfirmModal,
+  items,
+}) {
   const total = items.reduce((t, i) => t + i.price * i.count, 0);
 
-  useEffect(() => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    };
-    const promise = axios.get(
-      "https://toyscamp.herokuapp.com/shopcart",
-      config
-    );
-
-    promise.then((res) => {
-      setItems(res.data);
-    });
-
-    promise.catch((e) => {
-      console.log(e);
-    });
-  }, [user?.token, isOpen]);
-
   const finishOrder = () => {
-    if(items.length > 0){
-      toggleConfirmModal()
-      toggleShopcart()
-    }else{
-      alert("Você ainda não possui itens no carrinho")
+    if (items.length > 0) {
+      toggleConfirmModal();
+      toggleShopcart();
+    } else {
+      alert("Você ainda não possui itens no carrinho");
     }
-  }
+  };
 
   return (
     <Container isOpen={isOpen}>
@@ -64,10 +43,10 @@ export default function Shopcart({ isOpen, toggleShopcart, confirmModalIsOpen, t
         </div>
       </MenuContent>
       <Background onClick={toggleShopcart} isOpen={isOpen} />
-      <ConfirmOrderModal 
-        total={total} 
-        shopcart={items} 
-        confirmModalIsOpen={confirmModalIsOpen} 
+      <ConfirmOrderModal
+        total={total}
+        shopcart={items}
+        confirmModalIsOpen={confirmModalIsOpen}
         toggleConfirmModal={toggleConfirmModal}
       />
     </Container>

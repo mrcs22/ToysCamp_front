@@ -12,9 +12,30 @@ import ShopcartContext from "./contexts/ShopcartContext";
 
 export default function App() {
   const [products, setProducts] = useState([]);
+  const [items, setItems] = useState([]);
   const [user, setUser] = useState({});
   const [isLoginNeeded, setIsLoginNeeded] = useState(false);
   const [shopcartIsOpen, setShopcartIsOpen] = useState(false);
+
+  const getShopcartItems = useCallback(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    };
+    const promise = axios.get(
+      "https://toyscamp.herokuapp.com/shopcart",
+      config
+    );
+
+    promise.then((res) => {
+      setItems(res.data);
+    });
+
+    promise.catch((e) => {
+      console.log(e);
+    });
+  }, [user?.token]);
 
   const fetchProducts = useCallback(() => {
     axios
@@ -29,11 +50,12 @@ export default function App() {
 
   useEffect(() => {
     fetchProducts();
+    getShopcartItems();
     const localUser = localStorage.getItem("toysCampUserData");
     if (localUser) {
       setUser(JSON.parse(localUser));
     }
-  }, [fetchProducts]);
+  }, [fetchProducts, getShopcartItems]);
 
   return (
     <BrowserRouter>
@@ -58,7 +80,14 @@ export default function App() {
             <Route
               path="/"
               exact
-              render={(props) => <HomePage {...props} products={products} />}
+              render={(props) => (
+                <HomePage
+                  {...props}
+                  products={products}
+                  items={items}
+                  getShopcartItems={getShopcartItems}
+                />
+              )}
             />
             <Route
               path="/releases"
@@ -68,6 +97,8 @@ export default function App() {
                   {...props}
                   products={products}
                   category={"Lançamentos"}
+                  items={items}
+                  getShopcartItems={getShopcartItems}
                 />
               )}
             />
@@ -79,6 +110,8 @@ export default function App() {
                   {...props}
                   products={products}
                   category={"Promoções"}
+                  items={items}
+                  getShopcartItems={getShopcartItems}
                 />
               )}
             />

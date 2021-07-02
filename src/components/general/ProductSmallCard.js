@@ -1,8 +1,14 @@
 import styled from "styled-components";
 import ShopcartButton from "./ShopcartButton";
 
-export default function ProductSmallCard({ product }) {
+export default function ProductSmallCard({
+  product,
+  cartItems,
+  getShopcartItems,
+}) {
   const { id, name, image, price } = product;
+  const cartItem = cartItems.filter((i) => i.id === id);
+  const itemCount = cartItem[0]?.count;
 
   return (
     <CardContainer>
@@ -17,7 +23,11 @@ export default function ProductSmallCard({ product }) {
               juros
             </span>
           </div>
-          <ShopcartButton productId={id} />
+          <ShopcartButton
+            productId={id}
+            itemCount={itemCount}
+            getShopcartItems={getShopcartItems}
+          />
         </div>
       </ProductInfo>
     </CardContainer>
