@@ -6,7 +6,7 @@ import Header from "../header/Header";
 export default function HomePage({ products, items, getShopcartItems }) {
   return (
     <Container>
-      <Header items={items} />
+      <Header items={items} getShopcartItems={getShopcartItems} />
       <ProductsContainer
         category={"Lançamentos"}
         products={products}

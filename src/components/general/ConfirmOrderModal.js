@@ -2,18 +2,25 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
+import Loader from "react-loader-spinner";
 
 export default function ConfirmOrderModal({
   shopcart,
   total,
   confirmModalIsOpen,
   toggleConfirmModal,
+  getShopcartItems,
 }) {
   const { user } = useContext(UserContext);
   const [paymentMethod, setPaymentMethod] = useState("boleto");
   const [buyerCPF, setBuyerCPF] = useState("");
+  const [isClosingOrder, setIsClosingOrder] = useState(false);
+
+  const [closingOrderFailed, setClosingOrderFailed] = useState(false);
 
   const confirmOrder = () => {
+    setIsClosingOrder(true);
+    setClosingOrderFailed(false);
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -29,9 +36,15 @@ export default function ConfirmOrderModal({
       config
     );
 
-    promise.then((res) => {});
+    promise.then((res) => {
+      getShopcartItems();
+      setIsClosingOrder(false);
+      toggleConfirmModal();
+    });
 
     promise.catch((e) => {
+      setIsClosingOrder(false);
+      setClosingOrderFailed(true);
       console.log(e);
     });
   };
@@ -40,6 +53,7 @@ export default function ConfirmOrderModal({
     <>
       <Container isOpen={confirmModalIsOpen}>
         <p>Confirme seu pedido.</p>
+        {closingOrderFailed && <FailWarning>Ocorreu Um erro.</FailWarning>}
         <ul>
           {shopcart.map((item, i) => (
             <li key={i}>
@@ -97,7 +111,7 @@ export default function ConfirmOrderModal({
         </div>
         <div className="buttons_container">
           <button className="confirm_button" onClick={confirmOrder}>
-            Confirmar
+            {isClosingOrder ? DotsLoader : "Confirmar"}
           </button>
           <button className="back_button" onClick={toggleConfirmModal}>
             Voltar
@@ -132,7 +146,13 @@ const Container = styled.div`
     font-size: 25px;
     font-weight: 700;
   }
-  ul { 
+  ul {
+    height: calc(100vh - 400px);
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 1rem;
+    padding: 0 5px;
+
     overflow: hidden;
     overflow-y: scroll;
   }
@@ -195,4 +215,15 @@ const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 3;
   pointer-events: none;
+`;
+
+const DotsLoader = (
+  <Loader type="ThreeDots" color="#00BFFF" height={30} width={30} />
+);
+
+const FailWarning = styled.p`
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: red;
 `;

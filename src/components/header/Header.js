@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import Shopcart from "./Shopcart";
 import ShopcartContext from "../../contexts/ShopcartContext";
 
-export default function Header({ items }) {
+export default function Header({ items, getShopcartItems }) {
   const [sideMenuIsOpen, setSideMenuIsOpen] = useState(false);
   const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
   const { shopcartIsOpen, setShopcartIsOpen } = useContext(ShopcartContext);
@@ -44,6 +44,7 @@ export default function Header({ items }) {
         confirmModalIsOpen={confirmModalIsOpen}
         toggleConfirmModal={toggleConfirmModal}
         items={items}
+        getShopcartItems={getShopcartItems}
       />
     </HeaderContainer>
   );

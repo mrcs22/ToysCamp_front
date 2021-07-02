@@ -6,6 +6,7 @@ export default function Shopcart({
   confirmModalIsOpen,
   toggleConfirmModal,
   items,
+  getShopcartItems,
 }) {
   const total = items.reduce((t, i) => t + i.price * i.count, 0);
 
@@ -23,9 +24,13 @@ export default function Shopcart({
       <MenuContent>
         <p>Carrinho</p>
         <ul>
-          {items.length === 0 
-          ? <p className="empty_message">Você não possui itens no seu carrinho</p>
-          : ""}
+          {items.length === 0 ? (
+            <p className="empty_message">
+              Você não possui itens no seu carrinho
+            </p>
+          ) : (
+            ""
+          )}
           {items.map((item, i) => (
             <li key={i}>
               <div>
@@ -51,6 +56,7 @@ export default function Shopcart({
         shopcart={items}
         confirmModalIsOpen={confirmModalIsOpen}
         toggleConfirmModal={toggleConfirmModal}
+        getShopcartItems={getShopcartItems}
       />
     </Container>
   );
@@ -125,11 +131,10 @@ const MenuContent = styled.div`
       }
     }
   }
-  .empty_message{
+  .empty_message {
     margin: 50% auto;
     font-size: 30px;
     text-align: center;
-
   }
   .total {
     font-size: 1.5rem;
@@ -144,16 +149,16 @@ const MenuContent = styled.div`
     button {
       width: 110px;
       aspect-ratio: 2 / 1;
-      color: #DBE6FD;
-      background-color: #293B5F;
+      color: #dbe6fd;
+      background-color: #293b5f;
       border-style: none;
       border-radius: 5px;
       font-size: 22px;
       cursor: pointer;
     }
     button:first-child {
-      background-color: #DBE6FD;
-      color: #293B5F;
+      background-color: #dbe6fd;
+      color: #293b5f;
     }
     div:last-child {
       display: flex;
