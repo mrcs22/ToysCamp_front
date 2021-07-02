@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
+import ConfirmOrderModal from "../general/ConfirmOrderModal";
 
 export default function Shopcart({ isOpen, toggleShopcart }) {
   const [items, setItems] = useState([]);
@@ -29,18 +30,23 @@ export default function Shopcart({ isOpen, toggleShopcart }) {
     });
   }, [user?.token]);
 
+  const finishOrder = () => {
+
+    toggleShopcart()
+  }
+
   return (
     <Container isOpen={isOpen}>
       <MenuContent>
         <p>Carrinho</p>
         <ul>
-          {items.map((i) => (
-            <li>
+          {items.map((item, i) => (
+            <li key={i}>
               <div>
-                <span>{i.count}x</span>
-                {i.name}
+                <span>{item.count}x</span>
+                {item.name}
               </div>
-              <p>R${(i.price / 100).toFixed(2)}</p>
+              <p>R${(item.price / 100).toFixed(2)}</p>
             </li>
           ))}
         </ul>
@@ -49,11 +55,12 @@ export default function Shopcart({ isOpen, toggleShopcart }) {
           <div className="bar"></div>
           <div>
             <button onClick={toggleShopcart}>Voltar</button>
-            <button onClick={toggleShopcart}>Finalizar</button>
+            <button onClick={finishOrder}>Finalizar</button>
           </div>
         </div>
       </MenuContent>
       <Background onClick={toggleShopcart} isOpen={isOpen} />
+      <ConfirmOrderModal total={total} shopcart={items}/>
     </Container>
   );
 }
@@ -76,7 +83,7 @@ const MenuContent = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 80%;
-  max-width: 400px;
+  max-width: 600px;
   min-width: 280px;
   height: 100%;
   padding: 0 20px;
@@ -94,7 +101,7 @@ const MenuContent = styled.div`
     height: calc(100vh - 300px);
     width: 90%;
 
-    margin: 0 auto;
+    margin: 40px auto 0 auto;
     padding: 0 5px;
 
     overflow: hidden;
@@ -104,12 +111,11 @@ const MenuContent = styled.div`
   li {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
 
     div {
       width: 70%;
-
-      height: 20px;
+      width: 350px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

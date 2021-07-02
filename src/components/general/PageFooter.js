@@ -9,13 +9,16 @@ export default function PageFooter(){
 }
 
 const Footer = styled.div`
+    position: relative;
+    bottom: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 60px;
     background-color: #293B5F;
-    margin-top: 50px;
     color: #fff;
     font-size: 18px;
+    margin-top: 50px;
 `

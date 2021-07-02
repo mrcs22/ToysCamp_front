@@ -34,7 +34,7 @@ export default function ProductsContainer({ category, products }) {
       <Carousel ref={myRef}>
         <>
         {randomProducts.splice(0, 7).map((product, i) => (
-          <ProductCard id={i} product={product} />
+          <ProductCard key={i} id={product.id} product={product} />
         ))}
         <div className="carouselButton back" onClick={() => sideScroll('left', 5, 400, 5)}><RiArrowDropLeftFill/></div>
         <div className="carouselButton next" onClick={() => sideScroll('right', 5, 400, 5)}><RiArrowDropRightFill/></div>
