@@ -23,6 +23,9 @@ export default function Shopcart({
       <MenuContent>
         <p>Carrinho</p>
         <ul>
+          {items.length === 0 
+          ? <p className="empty_message">Você não possui itens no seu carrinho</p>
+          : ""}
           {items.map((item, i) => (
             <li key={i}>
               <div>
@@ -79,13 +82,11 @@ const MenuContent = styled.div`
   z-index: 2;
   font-family: "Saira Stencil One", cursive;
   font-size: 1.3rem;
-
   & > p {
     text-align: center;
     font-size: 30px;
     margin-top: 40px;
   }
-
   & > ul {
     height: calc(100vh - 300px);
     width: 90%;
@@ -96,12 +97,10 @@ const MenuContent = styled.div`
     overflow: hidden;
     overflow-y: scroll;
   }
-
   li {
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
-
     div {
       width: 70%;
       width: 350px;
@@ -116,7 +115,6 @@ const MenuContent = styled.div`
     @media (max-width: 600px) {
       font-size: 1rem;
     }
-
     @media (max-width: 350px) {
       div {
         width: 90%;
@@ -127,18 +125,15 @@ const MenuContent = styled.div`
       }
     }
   }
-
+  .empty_message{
+    margin: 300px auto;
+    font-size: 35px;
+    width: 350px;
+    text-align: center;
+  }
   .total {
     font-size: 1.5rem;
   }
-  button {
-    width: 70px;
-    height: 30px;
-    color: #1877f2;
-    background-color: #fff;
-    cursor: pointer;
-  }
-
   .shopcartFooter {
     display: flex;
     flex-direction: column;
@@ -146,10 +141,23 @@ const MenuContent = styled.div`
     height: 100px;
     font-size: 20px;
     margin-bottom: 30px;
-
+    button {
+      width: 110px;
+      aspect-ratio: 2 / 1;
+      color: #DBE6FD;
+      background-color: #293B5F;
+      border-style: none;
+      border-radius: 5px;
+      font-size: 22px;
+      cursor: pointer;
+    }
+    button:first-child {
+      background-color: #DBE6FD;
+      color: #293B5F;
+    }
     div:last-child {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
     }
   }
   .bar {
