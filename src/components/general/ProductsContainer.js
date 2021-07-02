@@ -1,18 +1,22 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
 import { RiArrowDropRightFill } from "react-icons/ri";
 import { RiArrowDropLeftFill } from "react-icons/ri";
 
-export default function ProductsContainer({
+const ProductsContainer = ({
   category,
   products,
   cartItems,
   getShopcartItems,
-}) {
+}) => {
+
   const myRef = useRef();
   const filteredProducts = products.filter(
     (product) => product.category === category
+  );
+  const randomProducts = filteredProducts.sort(() =>
+    Math.round(Math.random() - 1)
   );
 
   console.log("from pcontainer  ", cartItems);
@@ -36,7 +40,7 @@ export default function ProductsContainer({
       <CategoryTitle>{category}</CategoryTitle>
       <Carousel ref={myRef}>
         <>
-          {filteredProducts.splice(0, 7).map((product, i) => (
+          {randomProducts.splice(0, 7).map((product, i) => (
             <ProductCard
               id={i}
               product={product}
@@ -122,3 +126,7 @@ const Carousel = styled.div`
     }
   }
 `;
+
+const MemoizeProductsContainer = React.memo(ProductsContainer)
+
+export default MemoizeProductsContainer
