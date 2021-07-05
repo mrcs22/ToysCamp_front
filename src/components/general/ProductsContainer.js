@@ -15,9 +15,6 @@ const ProductsContainer = ({
   const filteredProducts = products.filter(
     (product) => product.category === category
   );
-  const randomProducts = filteredProducts.sort(() =>
-    Math.round(Math.random() - 1)
-  );
 
   const sideScroll = (direction, speed, distance, step) => {
     let scrollAmount = 0;
@@ -39,8 +36,8 @@ const ProductsContainer = ({
       <CategoryTitle>{category}</CategoryTitle>
       <Carousel ref={myRef}>
         <>
-          {randomProducts.length > 0 ? (
-            randomProducts
+          {filteredProducts.length > 0 ? (
+            filteredProducts
               .splice(0, 7)
               .map((product, i) => (
                 <ProductCard
